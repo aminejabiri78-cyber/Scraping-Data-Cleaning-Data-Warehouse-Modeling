@@ -11,7 +11,7 @@ def main():
     save_to_csv(df)
     save_db(df)
 
-    print("✅ Pipeline finished successfully")
+    print("Pipeline finished successfully")
 
 
 if __name__ == "__main__":

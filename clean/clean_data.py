@@ -21,4 +21,4 @@ except Exception as e:
 
 with engine.begin() as con :
     df=pd.read_sql("SELECT * FROM staging.avito_raw",engine)
-    df.columns
+   
