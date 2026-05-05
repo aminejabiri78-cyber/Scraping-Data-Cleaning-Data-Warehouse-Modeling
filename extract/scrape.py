@@ -12,7 +12,7 @@ def scrape_avito():
 
     base_url = "https://www.avito.ma/fr/maroc/appartements-%C3%A0_louer?price=5000-&rooms=1&spare_rooms=1&bathrooms=1&size=-&has_price=true"
 
-    for page in range(1,50):
+    for page in range(1,5):
         print(f"Scraping page {page}...")
 
         driver.get(base_url + "&page=" + str(page))
