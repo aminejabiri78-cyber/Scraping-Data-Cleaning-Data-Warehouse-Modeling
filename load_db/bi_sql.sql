@@ -1,15 +1,15 @@
-CREATE TABLE BI_schema.dim_location (
+CREATE TABLE IF NOT EXISTS  BI_schema.dim_location (
     location_id SERIAL PRIMARY KEY,
     ville VARCHAR(100),
     quartier VARCHAR(150)
 );
 
-CREATE TABLE BI_schema.dim_source (
+ CREATE TABLE IF NOT EXISTS BI_schema.dim_source (
     source_id SERIAL PRIMARY KEY,
     lien TEXT
 );
 
-CREATE TABLE BI_schema.dim_property (
+CREATE TABLE IF NOT EXISTS  BI_schema.dim_property (
     property_id SERIAL PRIMARY KEY,
     titre TEXT,
     chambres INT,
@@ -17,7 +17,7 @@ CREATE TABLE BI_schema.dim_property (
     etage INT
 );
 
-CREATE TABLE BI_schema.fact_annonce (
+CREATE TABLE IF NOT EXISTS BI_schema.fact_annonce (
     annonce_id SERIAL PRIMARY KEY,
 
     location_id INT REFERENCES BI_schema.dim_location(location_id),

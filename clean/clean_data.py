@@ -1,9 +1,7 @@
 import pandas as pd
 from sqlalchemy import text
 
-# -------------------------
 # CLEAN FUNCTION
-# -------------------------
 def clean_data(df):
 
     def clean_numeric(col):
@@ -23,8 +21,7 @@ def clean_data(df):
         df[col] = clean_numeric(df[col])
 
     # Ville
-    df["Ville"] = (
-        df["Ville"]
+    df["Ville"] = (df["Ville"]
         .astype(str)
         .str.replace("Appartements dans", "")
         .str.strip()
@@ -67,9 +64,7 @@ def clean_data(df):
     return df
 
 
-# -------------------------
 # SAVE FUNCTION
-# -------------------------
 def save_data(df, engine, path):
 
     with engine.begin() as con:
@@ -85,4 +80,3 @@ def save_data(df, engine, path):
 
     df.to_csv(path, index=False)
 
-    print("✅ Data saved (DB + CSV)")

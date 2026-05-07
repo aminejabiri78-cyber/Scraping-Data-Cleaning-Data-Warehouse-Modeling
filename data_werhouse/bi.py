@@ -20,15 +20,11 @@ def load_to_bi(df, engine):
 
 
 
-    # -------------------------
     # CLEAN COLUMN NAMES
-    # -------------------------
     df=pd.read_sql("select * from clean.avito_appartements_clean",engine)
     df.columns = df.columns.str.lower()
 
-    # -------------------------
     # DIM LOCATION
-    # -------------------------
 
     dim_location = df[["ville", "quartier"]].drop_duplicates()
     dim_location.to_sql(
@@ -39,9 +35,8 @@ def load_to_bi(df, engine):
         index=False
     )
 
-    # -------------------------
     # DIM SOURCE
-    # -------------------------
+    
     dim_source = df[["lien"]].drop_duplicates()
     dim_source.to_sql(
         "dim_source",
@@ -51,9 +46,7 @@ def load_to_bi(df, engine):
         index=False
     )
 
-    # -------------------------
     # DIM PROPERTY
-    # -------------------------
     dim_property = df[["titre", "chambres", "salle_de_bain", "etage"]].drop_duplicates()
     dim_property.to_sql(
         "dim_property",
@@ -63,23 +56,18 @@ def load_to_bi(df, engine):
         index=False
     )
 
-    # -------------------------
     # RELOAD DIM TABLES
-    # -------------------------
     dim_location_db = pd.read_sql("SELECT * FROM bi_schema.dim_location", engine)
     dim_property_db = pd.read_sql("SELECT * FROM bi_schema.dim_property", engine)
     dim_source_db = pd.read_sql("SELECT * FROM bi_schema.dim_source", engine)
 
-    # -------------------------
     # MERGE SAFE
-    # -------------------------
     df = df.merge(dim_location_db, on=["ville", "quartier"], how="left")
     df = df.merge(dim_property_db, on=["titre", "chambres", "salle_de_bain", "etage"], how="left")
     df = df.merge(dim_source_db, on="lien", how="left")
 
-    # -------------------------
+    
     # FACT TABLE
-    # -------------------------
     fact_annonce = df[[
         "location_id",
         "property_id",
@@ -100,4 +88,3 @@ def load_to_bi(df, engine):
         index=False
     )
 
-    print("🚀 BI load terminé avec succès !")
