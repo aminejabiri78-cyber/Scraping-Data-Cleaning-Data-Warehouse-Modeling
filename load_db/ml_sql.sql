@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS ml_schema.obt_table (
     total_pieces INT,
     is_centre BOOLEAN,
     is_outlier BOOLEAN,
-    ville TEXT,ER
+    ville TEXT,
     quartier TEXT,
     lien TEXT
 );

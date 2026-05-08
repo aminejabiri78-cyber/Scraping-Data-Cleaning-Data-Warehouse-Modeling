@@ -1,40 +1,24 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver import Remote
 import time
 import random
+import pandas as pd
 
 
 def scrape_avito():
-    # ====== FIX: Remote Selenium (Docker) ======
-    options = Options()
-    options.add_argument("--headless")
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
-
-    driver = Remote(
-        command_executor="http://localhost:4444/wd/hub",
-        options=options
-    )
-
+    driver = webdriver.Chrome()
     data = []
     seen_links = set()
 
     base_url = "https://www.avito.ma/fr/maroc/appartements-%C3%A0_louer?price=5000-&rooms=1&spare_rooms=1&bathrooms=1&size=-&has_price=true"
 
-    for page in range(1, 100):
+    for page in range(1,100):
         print(f"Scraping page {page}...")
 
         driver.get(base_url + "&page=" + str(page))
-        time.sleep(random.uniform(3, 6))
+        time.sleep(random.uniform(2,6))
 
         cards = driver.find_elements(By.CSS_SELECTOR, "a.sc-1jge648-0.jZXrfL")
-
-        # stop if no data
-        if len(cards) == 0:
-            print("No more data, stopping...")
-            break
 
         for c in cards:
             try:

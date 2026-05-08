@@ -35,6 +35,7 @@ def main():
 
     # 6. BI LAYER
     load_to_bi(df_clean, engine)
+    # 7 ml schema 
     load_ml_schema()
     print(" Pipeline finished successfully")
 
